@@ -1,6 +1,10 @@
 # Changelog
 Changelog for dpdumperlib
 
+## [0.0.5] - 2025-09-05
+### Changed
+- IC loader now checks that data and address pins have no entries in common
+
 ## [0.0.4] - 2024-09-28
 ### Added
 - Parameter to set endianness of data loaded from file

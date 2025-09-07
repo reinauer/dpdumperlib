@@ -25,3 +25,7 @@ def filename_randomdata_1k() -> str:
 @pytest.fixture
 def filename_randomdata_1_5k() -> str:
     return 'tests/data/random_1.5K.bin'
+
+@pytest.fixture
+def filename_incorrect_definition() -> str:
+    return 'tests/data/incorrect_definition.toml'

@@ -5,6 +5,9 @@
 import sys
 sys.path.insert(0, './src') # Make VSCode happy...
 
+import pytest
+
+from dpdumperlib.ic.ic_loader import ICLoader
 from dpdumperlib.ic.ic_types import ICType
 
 def test_27C2001_Definition(ic_definition_27C2001):
@@ -36,3 +39,7 @@ def test_PAL12x6_Definition(ic_definition_PAL12x6):
     assert len(ic_definition_PAL12x6.data) == len(ic_definition_PAL12x6.nr_data)
     
     assert ic_definition_PAL12x6.hw_model == 3
+
+def test_Invalid_Definition(filename_incorrect_definition):
+    with pytest.raises(ValueError, match=r'.* shares data and address pins.'):
+        ICLoader.extract_definition_from_file(filename_incorrect_definition)

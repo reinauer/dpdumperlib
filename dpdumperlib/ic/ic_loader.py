@@ -45,6 +45,13 @@ class ICLoader:
             toml_data: dict[str, Any] = tomllib.load(f)
 
             ic_type: ICType = ICType(toml_data[cls._KEY_TYPE])
+
+            # Minimal checking: we'll make sure the address and data pins have no entries in common
+            address_set: set[int] = set(toml_data[cls._KEY_PINOUT][cls._KEY_PINOUT_ADDRESS])
+            data_set: set[int] = set(toml_data[cls._KEY_PINOUT][cls._KEY_PINOUT_DATA])
+            if not address_set.isdisjoint(data_set):
+                raise ValueError(f'Definition for {toml_data[cls._KEY_NAME]} shares data and address pins.')
+
             return ICDefinition(name=toml_data[cls._KEY_NAME],
                                 ic_type=ic_type,
                                 zif_map=toml_data[cls._KEY_PINOUT][cls._KEY_PINOUT_ZIFMAP],
